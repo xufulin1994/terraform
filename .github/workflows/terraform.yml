@@ -29,10 +29,6 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check      
 
-      # Checks that all Terraform configuration files adhere to a canonical format
-      - name: Terraform Format
-        run: terraform fmt -check
-
       # Previews the changes that Terraform will make
       - name: Plan Terraform
         id: plan
