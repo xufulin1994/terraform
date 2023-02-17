@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
@@ -23,6 +24,10 @@ jobs:
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         run: terraform init
+
+      # Checks that all Terraform configuration files adhere to a canonical format
+      - name: Terraform Format
+        run: terraform fmt -check
 
       # Previews the changes that Terraform will make
       - name: Plan Terraform
@@ -43,3 +48,11 @@ jobs:
             ```
             ${{ steps.plan.outputs.stdout }}
             ```
+
+      # Applies the terraform configuration files when the branch is `main`
+      - name: Apply Terraform
+        if: github.ref != 'refs/heads/main'
+        id: apply
+        continue-on-error: true
+        run: |
+          terraform apply -auto-approve
