@@ -43,11 +43,3 @@ jobs:
             ```
             ${{ steps.plan.outputs.stdout }}
             ```
-
-      # Applies the terraform configuration files when the branch is `main`
-      - name: Apply Terraform
-        if: github.ref == 'refs/heads/main'
-        id: apply
-        continue-on-error: true
-        run: |
-          terraform apply -auto-approve
