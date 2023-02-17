@@ -9,7 +9,8 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-
+    permissions:
+      pull-requests: write
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Checkout
